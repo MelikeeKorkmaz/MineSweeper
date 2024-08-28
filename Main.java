@@ -22,10 +22,7 @@ public class Main {
         } while (!isTrue(i, j));
 
         MineSweeper m = new MineSweeper(i, j);
-        //Görebilmek için yazdığım kod
         m.clue();
-        m.printMatrix();
-        System.out.println();
         m.game();
         m.printGame();
 
