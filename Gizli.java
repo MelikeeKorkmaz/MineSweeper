@@ -4,7 +4,7 @@ public class MineSweeper {
     int row;
     int col;
     double mine;
-    boolean isGameEnd = true;
+    boolean isGameEnd = false;
 
     String[][] matrix;
     String[][] game;
@@ -108,24 +108,19 @@ public class MineSweeper {
     }
 
     void play(int x, int y) {
-        clue();
         isNumSame(x, y);
         if ((x < this.row - 2) && (y < this.col - 2) && (0 <= x) && (0 <= y) && (isNumSame(x, y))) {
             if (this.matrix[x + 1][y + 1] == "*") {
                 System.out.println("Mayın!!! Oyunu kaybettiniz.");
                 printMatrix();
-                isGameEnd = false;
+                isGameEnd = true;
             } else {
                 this.game[x][y] = this.matrix[x + 1][y + 1];
-                for (int i = 0; i < this.row - 2; i++) {
-                    for (int j = 0; j < this.col - 2; j++) {
-                        if (this.game[i][j] != "-") {
-                            System.out.println("***Tebrikler oyunu kazandınız***");
-                            isGameEnd = false;
-                        }
-                    }
+                printGame();
+                if (check()) {
+                    System.out.println("Tebrikler!!! Oyunu kazandınız.");
+                    isGameEnd = true;
                 }
-
             }
         } else {
             if (!isNumSame(x, y)) {
@@ -137,12 +132,29 @@ public class MineSweeper {
         }
     }
 
+    boolean check() {
+        for (int i = 0; i < this.row - 2; i++) {
+            for (int j = 0; j < this.col - 2; j++) {
+                if (this.game[i][j] == "-") {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     boolean isNumSame(int x, int y) {
-        //Liste önceden girilmediği için değerleri 0 gösteriyor olabilir. 0 a 0 noktası hata verebilir dene.
+        int a = 0;
         int number = ((x * 10) + y);
+
         int count = 0;
         for (int i : list) {
             if (list[i] == number) {
+                if (x == 0 && y == 0 && a==0){
+                    a++;
+                    count++;
+                    return true;
+                }
                 return false;
             } else {
                 list[count++] = number;
@@ -152,12 +164,7 @@ public class MineSweeper {
         return true;
     }
 
-    static boolean isMine(int x, int y) {
-        return true;
-    }
-
     void printGame() {
-        game();
         for (String[] i : this.game) {
             for (String j : i) {
                 System.out.print(j + " ");
