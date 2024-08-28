@@ -5,6 +5,8 @@ public class MineSweeper {
     int col;
     double mine;
     boolean isGameEnd = false;
+    int a = 0;
+    int count;
 
     String[][] matrix;
     String[][] game;
@@ -17,6 +19,8 @@ public class MineSweeper {
         this.matrix = new String[this.row][this.col];
         this.game = new String[this.row - 2][this.col - 2];
         this.list = new int[row * col];
+        this.a = 0;
+        this.count = 0;
     }
 
     void calcMine() {
@@ -107,15 +111,14 @@ public class MineSweeper {
         }
     }
 
-    void play(int x, int y) {
-        isNumSame(x, y);
-        if ((x < this.row - 2) && (y < this.col - 2) && (0 <= x) && (0 <= y) && (isNumSame(x, y))) {
-            if (this.matrix[x + 1][y + 1] == "*") {
+    void play(int k, int l) {
+        if ((k < this.row - 2) && (l < this.col - 2) && (0 <= k) && (0 <= l) && (isNumSame(k, l))) {
+            if (this.matrix[k + 1][l + 1] == "*") {
                 System.out.println("Mayın!!! Oyunu kaybettiniz.");
                 printMatrix();
                 isGameEnd = true;
             } else {
-                this.game[x][y] = this.matrix[x + 1][y + 1];
+                this.game[k][l] = this.matrix[k + 1][l + 1];
                 printGame();
                 if (check()) {
                     System.out.println("Tebrikler!!! Oyunu kazandınız.");
@@ -123,7 +126,7 @@ public class MineSweeper {
                 }
             }
         } else {
-            if (!isNumSame(x, y)) {
+            if (!isNumSame(k, l)) {
                 System.out.println("Bu koordinat daha önce seçildi, başka bir koordinat girin!");
             } else {
                 System.out.println("Yanlış değer girdiniz!");
@@ -143,21 +146,19 @@ public class MineSweeper {
         return true;
     }
 
-    boolean isNumSame(int x, int y) {
-        int a = 0;
-        int number = ((x * 10) + y);
+    boolean isNumSame(int k, int l) {
+        int number = ((k * 10) + l);
 
-        int count = 0;
         for (int i : list) {
             if (list[i] == number) {
-                if (x == 0 && y == 0 && a==0){
+                if (k == 0 && l == 0 && this.a==0){
                     a++;
-                    count++;
+                    this.count++;
                     return true;
                 }
                 return false;
             } else {
-                list[count++] = number;
+                list[this.count++] = number;
                 return true;
             }
         }
