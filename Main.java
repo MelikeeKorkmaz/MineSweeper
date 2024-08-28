@@ -22,18 +22,19 @@ public class Main {
         }while(!isTrue(i, j));
 
         MineSweeper m= new MineSweeper(i, j);
+        //Görebilmek için yazdığım kod
         m.printMatrix();
-        m.game();
         System.out.println();
+        m.game();
         m.printGame();
 
         System.out.println("Açmak istediğiniz satır ve sütun numaralarını giriniz.");
         do{
             System.out.print("Satır: ");
-            int x = input.nextInt();
+            int k = input.nextInt();
             System.out.print("Sütun: ");
-            int y = input.nextInt();
-            m.play(x, y);
+            int l = input.nextInt();
+            m.play(k, l);
         }while(!m.isGameEnd);
 
     }
