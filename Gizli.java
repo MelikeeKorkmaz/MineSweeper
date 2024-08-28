@@ -94,7 +94,6 @@ public class MineSweeper {
 
 
     void printMatrix() {
-        clue();
         for (String[] i : this.matrix) {
             for (String j : i) {
                 System.out.print(j + " ");
@@ -106,16 +105,15 @@ public class MineSweeper {
     void game() {
         for (int i = 0; i < this.row - 2; i++) {
             for (int j = 0; j < this.col - 2; j++) {
-                game[i][j] = "-";
+                this.game[i][j] = "-";
             }
         }
     }
 
     void play(int k, int l) {
-        if ((k < this.row - 2) && (l < this.col - 2) && (0 <= k) && (0 <= l) && (isNumSame(k, l))) {
+        if (this.game[k][l] == "-") {
             if (this.matrix[k + 1][l + 1] == "*") {
                 System.out.println("Mayın!!! Oyunu kaybettiniz.");
-                printMatrix();
                 isGameEnd = true;
             } else {
                 this.game[k][l] = this.matrix[k + 1][l + 1];
@@ -126,40 +124,16 @@ public class MineSweeper {
                 }
             }
         } else {
-            if (!isNumSame(k, l)) {
-                System.out.println("Bu koordinat daha önce seçildi, başka bir koordinat girin!");
-            } else {
-                System.out.println("Yanlış değer girdiniz!");
-                System.out.println("Satır ve sütun sayınız 0 ve 0'dan büyük olmalı. Satır sayınız " + (this.row - 2) + " değerinden, sütun sayınız " + (this.col - 2) + " değerinden küçük olmalı.");
-            }
+            System.out.println("Bu koordinat daha önce seçildi, başka bir koordinat girin!");
         }
     }
 
     boolean check() {
         for (int i = 0; i < this.row - 2; i++) {
             for (int j = 0; j < this.col - 2; j++) {
-                if (this.game[i][j] == "-") {
+                if ((this.game[i][j] == "-") && (this.matrix[i + 1][j + 1] != "*")) {
                     return false;
                 }
-            }
-        }
-        return true;
-    }
-
-    boolean isNumSame(int k, int l) {
-        int number = ((k * 10) + l);
-
-        for (int i : list) {
-            if (list[i] == number) {
-                if (k == 0 && l == 0 && this.a==0){
-                    a++;
-                    this.count++;
-                    return true;
-                }
-                return false;
-            } else {
-                list[this.count++] = number;
-                return true;
             }
         }
         return true;
