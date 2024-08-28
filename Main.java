@@ -23,6 +23,7 @@ public class Main {
 
         MineSweeper m= new MineSweeper(i, j);
         m.printMatrix();
+        m.game();
         System.out.println();
         m.printGame();
 
@@ -30,12 +31,10 @@ public class Main {
         do{
             System.out.print("Satır: ");
             int x = input.nextInt();
-            System.out.print("\nSütun: ");
+            System.out.print("Sütun: ");
             int y = input.nextInt();
             m.play(x, y);
-        }while(m.isGameEnd);
-
-
+        }while(!m.isGameEnd);
 
     }
 }
