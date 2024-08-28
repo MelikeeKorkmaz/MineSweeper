@@ -5,7 +5,7 @@ public class MineSweeper {
     int col;
     double mine;
     boolean isGameEnd = false;
-    int a = 0;
+    int a;
     int count;
 
     String[][] matrix;
@@ -63,8 +63,7 @@ public class MineSweeper {
     }
 
     void code(String[][] arr, int i, int j) {
-        if (arr[i][j] != "*") {
-            int x;
+        if (!((arr[i][j]).equals("*"))) {
             String str = arr[i][j];
             int number = Integer.parseInt(str);
             number++;
@@ -77,7 +76,7 @@ public class MineSweeper {
         baseMatrix();
         for (int i = 0; i < this.row; i++) {
             for (int j = 0; j < this.col; j++) {
-                if (matrix[i][j] == "*") {
+                if ((matrix[i][j]).equals("*")) {
                     code(this.matrix, i - 1, j);
                     code(this.matrix, i - 1, j - 1);
                     code(this.matrix, i - 1, j + 1);
@@ -111,8 +110,8 @@ public class MineSweeper {
     }
 
     void play(int k, int l) {
-        if (this.game[k][l] == "-") {
-            if (this.matrix[k + 1][l + 1] == "*") {
+        if ((this.game[k][l]).equals("-")) {
+            if ((this.matrix[k + 1][l + 1]).equals("*")) {
                 System.out.println("Mayın!!! Oyunu kaybettiniz.");
                 isGameEnd = true;
             } else {
@@ -131,7 +130,7 @@ public class MineSweeper {
     boolean check() {
         for (int i = 0; i < this.row - 2; i++) {
             for (int j = 0; j < this.col - 2; j++) {
-                if ((this.game[i][j] == "-") && (this.matrix[i + 1][j + 1] != "*")) {
+                if (((this.game[i][j]).equals("-")) && (!((this.matrix[i + 1][j + 1]).equals("*")))) {
                     return false;
                 }
             }
