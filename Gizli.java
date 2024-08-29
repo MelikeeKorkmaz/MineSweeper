@@ -3,15 +3,12 @@ import java.util.Random;
 public class MineSweeper {
     int row;
     int col;
-    double mine;
-    boolean isGameEnd = false;
     int baseRow;
     int baseCol;
-    int a;
-    int count;
+    double mine;
+    boolean isGameEnd = false;
     String[][] matrix;
     String[][] game;
-    int[] list;
 
     MineSweeper(int row, int col) {
         this.row = row;
@@ -21,9 +18,6 @@ public class MineSweeper {
         this.mine = 0;
         this.matrix = new String[this.baseRow][this.baseCol];
         this.game = new String[this.row][this.col];
-        this.list = new int[this.row * this.col];
-        this.a = 0;
-        this.count = 0;
     }
 
     void placeMine() {
@@ -70,7 +64,6 @@ public class MineSweeper {
         }
     }
 
-
     void clue() {
         baseMatrix();
         for (int i = 0; i < this.baseRow; i++) {
@@ -89,7 +82,6 @@ public class MineSweeper {
         }
         frame();
     }
-
 
     void printMatrix() {
         for (String[] i : this.matrix) {
