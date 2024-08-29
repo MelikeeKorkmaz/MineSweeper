@@ -5,31 +5,34 @@ public class MineSweeper {
     int col;
     double mine;
     boolean isGameEnd = false;
+    int baseRow;
+    int baseCol;
     int a;
     int count;
-
     String[][] matrix;
     String[][] game;
     int[] list;
 
     MineSweeper(int row, int col) {
-        this.row = row + 2;
-        this.col = col + 2;
+        this.row = row;
+        this.col = col;
+        this.baseRow = row + 2;
+        this.baseCol = col + 2;
         this.mine = 0;
-        this.matrix = new String[this.row][this.col];
-        this.game = new String[this.row - 2][this.col - 2];
-        this.list = new int[row * col];
+        this.matrix = new String[this.baseRow][this.baseCol];
+        this.game = new String[this.row][this.col];
+        this.list = new int[this.row * this.col];
         this.a = 0;
         this.count = 0;
     }
 
     void placeMine() {
-        this.mine = Math.round(((this.row - 2) * (this.col - 2)) / 4.0);
+        this.mine = Math.round(((this.row) * (this.col)) / 4.0);
         Random rand = new Random();
         int i = 0;
         while (i < (this.mine)) {
-            int x = rand.nextInt(this.row - 1);
-            int y = rand.nextInt(this.col - 1);
+            int x = rand.nextInt(this.row + 1);
+            int y = rand.nextInt(this.col + 1);
             if (!(matrix[x][y]).equals("*") && (x != 0) && (y != 0)) {
                 this.matrix[x][y] = "*";
                 i++;
@@ -38,8 +41,8 @@ public class MineSweeper {
     }
 
     void baseMatrix() {
-        for (int i = 0; i < this.row; i++) {
-            for (int j = 0; j < this.col; j++) {
+        for (int i = 0; i < this.baseRow; i++) {
+            for (int j = 0; j < this.baseCol; j++) {
                 this.matrix[i][j] = "0";
             }
         }
@@ -47,11 +50,11 @@ public class MineSweeper {
     }
 
     void frame() {
-        for (int i = 0; i < this.row; i++) {
-            for (int j = 0; j < this.col; j++) {
-                if (i == 0 || (i == this.row - 1)) {
+        for (int i = 0; i < this.baseRow; i++) {
+            for (int j = 0; j < this.baseCol; j++) {
+                if (i == 0 || (i == this.baseRow - 1)) {
                     matrix[i][j] = "_";
-                } else if (j == 0 || (j == this.col - 1)) {
+                } else if (j == 0 || (j == this.baseCol - 1)) {
                     matrix[i][j] = "|";
                 }
             }
@@ -70,8 +73,8 @@ public class MineSweeper {
 
     void clue() {
         baseMatrix();
-        for (int i = 0; i < this.row; i++) {
-            for (int j = 0; j < this.col; j++) {
+        for (int i = 0; i < this.baseRow; i++) {
+            for (int j = 0; j < this.baseCol; j++) {
                 if ((matrix[i][j]).equals("*")) {
                     code(this.matrix, i - 1, j);
                     code(this.matrix, i - 1, j - 1);
@@ -98,8 +101,8 @@ public class MineSweeper {
     }
 
     void game() {
-        for (int i = 0; i < this.row - 2; i++) {
-            for (int j = 0; j < this.col - 2; j++) {
+        for (int i = 0; i < this.row; i++) {
+            for (int j = 0; j < this.col; j++) {
                 this.game[i][j] = "-";
             }
         }
@@ -124,8 +127,8 @@ public class MineSweeper {
     }
 
     boolean check() {
-        for (int i = 0; i < this.row - 2; i++) {
-            for (int j = 0; j < this.col - 2; j++) {
+        for (int i = 0; i < this.row; i++) {
+            for (int j = 0; j < this.col; j++) {
                 if (((this.game[i][j]).equals("-")) && (!((this.matrix[i + 1][j + 1]).equals("*")))) {
                     return false;
                 }
