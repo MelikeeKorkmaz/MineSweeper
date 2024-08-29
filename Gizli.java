@@ -23,12 +23,8 @@ public class MineSweeper {
         this.count = 0;
     }
 
-    void calcMine() {
-        this.mine = Math.round(((this.row - 2) * (this.col - 2)) / 4.0);
-    }
-
     void placeMine() {
-        calcMine();
+        this.mine = Math.round(((this.row - 2) * (this.col - 2)) / 4.0);
         Random rand = new Random();
         int i = 0;
         while (i < (this.mine)) {
