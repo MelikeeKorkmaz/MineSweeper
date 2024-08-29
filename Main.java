@@ -9,7 +9,6 @@ public class Main {
         return true;
     }
 
-
     public static void main(String[] args) {
         int i, j;
         Scanner input = new Scanner(System.in);
@@ -36,12 +35,10 @@ public class Main {
             if (k >= 0 && l >= 0 && k < i && l < j) {
                 m.play(k, l);
             } else {
-                System.out.println("Yanlış değer girdiniz!");
-                System.out.println("Satır ve sütun sayınız 0 ve 0'dan büyük olmalı. Satır sayınız " + i + " değerinden, sütun sayınız " + j + " değerinden küçük olmalı.");
+                System.out.println("Yanlış değer girdiniz!\nSatır ve sütun sayınız 0 ve 0'dan büyük olmalı. Satır sayınız" + i + " değerinden, sütun sayınız " + j + " değerinden küçük olmalı.");
             }
-
         } while (!m.isGameEnd);
-        m.printMatrix();
 
+        m.printMatrix();
     }
 }
